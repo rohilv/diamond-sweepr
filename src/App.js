@@ -90,11 +90,9 @@ function App() {
 
     function _renderTable() {
         return (
-            <div>
                 <table className="table-board diamondsweeper-board">
                     <tbody>{_renderRows()}</tbody>
                 </table>
-            </div>
         );
     }
 

@@ -4,29 +4,30 @@ import {Button, Modal} from "react-bootstrap";
 function GameOver(props) {
     const [show, setShow] = useState(props.gameOver || props.foundAllDia)
     const {gameOver, score} = props
-    const handleClose = () => {
+    const _handleClose = () => {
         console.log('close modal')
         setShow(false)
     }
+    const _newGame = () => {
+       window.location.reload()
+    }
+
     return (
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={_handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>{gameOver ? `Game Over` : `Congratulations! You have found all the diamonds.`}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className="game-over-content">
-                    <span className="game-over-text">
-                      {gameOver ? `Game Over` : `Congratulations! You have found all the diamonds.`}
-                    </span>
+
                     <p className="score-text-game-over">Your score: {score}</p>
-                </div>
+
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
+                <Button variant="secondary" onClick={_handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={_newGame}>
                     New Game
                 </Button>
             </Modal.Footer>

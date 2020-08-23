@@ -18,7 +18,7 @@ function BlockItem(props) {
             );
         } else {
             return <div>
-                <img src={arrow} alt='arrow' className='images'/>
+                <div className='images'>&nbsp;</div>
             </div>
         }
     }
