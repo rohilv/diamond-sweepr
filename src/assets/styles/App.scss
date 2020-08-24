@@ -25,10 +25,17 @@
   color: #61dafb;
 }
 
-table.diamondsweeper-board {
+.content {
+  min-height: 90vh;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+table.diamondSweeper-board {
   td {
     padding: 0;
-    //border: 1px solid black;
   }
 }
 

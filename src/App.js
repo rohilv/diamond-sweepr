@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Jumbotron, Row} from "react-bootstrap";
 import './assets/styles/App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {ATTEMPTS, DIAMONDS, SIZE} from "./settings";
@@ -101,11 +101,11 @@ function App() {
     }
 
     /*
-    * @description: Function to render the Table / Grid Layout
+    * @description: Function to render the Table / Board Layout
     * */
     function _renderTable() {
         return (
-            <table className="diamondsweeper-board">
+            <table className="diamondSweeper-board">
                 <tbody>{_renderRows()}</tbody>
             </table>
         );
@@ -115,7 +115,7 @@ function App() {
         /*
         * @description: Basic skeleton structure of the page
         * */
-        <Container className="App" fluid>
+        <Container fluid className='App min-vh-100'>
             <Row>
                 <Col>
                     <header className="App-header">
@@ -123,8 +123,10 @@ function App() {
                     </header>
                 </Col>
             </Row>
-            <Row className="justify-content-md-center">
-                <Col xs={12} md={6} lg={9}>
+            <Row
+                xs={1} sm={1} md={3} lg={3} xl={4}
+                className="justify-content-around align-content-center content">
+                <Col md={9} lg={9}>
                     {gameOver || foundAllDiamond
                         ?
                         <GameOver gameOver={gameOver} score={score} foundAllDia={foundAllDiamond}/>
@@ -132,13 +134,21 @@ function App() {
                         _renderTable()
                     }
                 </Col>
-                <Col xs={12} md={6} lg={3}>
-                    <div className="score-board">
-                        <p>Your High Score: {localStorage.getItem('highScore') || 0}</p>
-                        <p>Diamonds Left: {diamondPositions.length}</p>
+                <Col xs={12} md={3} lg={3}>
+                    <Jumbotron>
+                        <div className="score-board">
+                            <h3 style={{display: "inline-flex", alignItems: "center"}}>
+                                <img src={require('./assets/images/diamond.png')} alt='diamond' height={50} width={50}/>
+                                <small className='text-uppercase'>left: </small>
+                                &nbsp;{diamondPositions.length}
+                            </h3>
 
-                        <p>Your score: {score}</p>
-                    </div>
+                            <h3><small className='text-uppercase'>Attempts:</small> {score}</h3>
+                            <h3><small
+                                className='text-uppercase'>HighScore: </small>{localStorage.getItem('highScore') || 0}
+                            </h3>
+                        </div>
+                    </Jumbotron>
                 </Col>
             </Row>
         </Container>

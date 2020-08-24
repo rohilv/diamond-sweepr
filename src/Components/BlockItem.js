@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import '../assets/styles/tableItem.css';
 import diamond from '../assets/images/diamond.png';
 import question from '../assets/images/question.png';
+import {Button} from "react-bootstrap";
 
 function BlockItem(props) {
 
@@ -48,7 +49,7 @@ function BlockItem(props) {
     }
     // Default : Render with Question mark
     return (
-        <button
+        <Button
             className="button"
             id={`button${props.row}${props.col}`}
             style={{
@@ -66,7 +67,7 @@ function BlockItem(props) {
                 alt="question"
                 style={{opacity: 0.4}}
             />
-        </button>
+        </Button>
     );
 }
 
