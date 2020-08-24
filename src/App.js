@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {Col, Container, Row} from "react-bootstrap";
 import './assets/styles/App.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {ATTEMPTS, DIAMONDS, SIZE} from "./settings";
 import BlockItem from "./Components/BlockItem";
-import {Col, Container, Row} from "react-bootstrap";
 import GameOver from "./Components/GameOver";
 
-//Initialize Diamond Array
 let diamondPositions = [];
 
 function App() {
@@ -15,11 +15,13 @@ function App() {
     const [foundAllDiamond, setFoundAllDiamond] = useState(false);
 
     useEffect(() => {
-        //Call generateDiamond on Component load
+        //One-time call to Generate Diamond positions on Component load
         generateDiamonds();
     }, [])
 
-    // Function to Generate Random Diamond positions
+    /*
+    * @description: Function to Generate Random Diamond positions
+    * */
     const generateDiamonds = () => {
         console.log("#### DIAMONDS ARE AT ####")
         while (diamondPositions.length < DIAMONDS) {
@@ -33,10 +35,11 @@ function App() {
         console.log('-------------------------')
     }
 
+    /*
+    * @description: Function to Decrement score on each click/ attempt. Also store the high-score in local storage for comparison
+    * */
     function _decrementCounter() {
-
         setScore(score - 1);
-
         if (score === 1) {
             setGameOver(true);
             const prevScore = parseInt(localStorage.getItem('highScore')) || 0;
@@ -45,6 +48,9 @@ function App() {
         }
     }
 
+    /*
+    * @description: Function to remove Diamonds from the Diamond Position array when a correct diamond is found
+    * */
     function _removeRevealedDiamondArray(row, col) {
         // console.log('removing diamond from array:', row,col)
         diamondPositions.splice(
@@ -60,17 +66,20 @@ function App() {
         }
     }
 
+    /*
+    * @description: Function to render each block elements of the row
+    * */
     function _renderRowElements(row) {
         let rowElements = [];
-        for (let i = 0; i < SIZE; i++) {
+        for (let c = 0; c < SIZE; c++) {
             rowElements.push(
-                <td key={i + '' + row}>
+                <td key={c + '' + row}>
                     <BlockItem
                         row={row}
-                        col={i}
+                        col={c}
                         diamondPositions={diamondPositions}
                         removeDiamondFromArray={() =>
-                            _removeRevealedDiamondArray(row, i)
+                            _removeRevealedDiamondArray(row, c)
                         }
                         decrementCounter={() => _decrementCounter()}
                     />
@@ -80,6 +89,9 @@ function App() {
         return rowElements;
     }
 
+    /*
+    * @description: Function to render each row of the grid
+    * */
     function _renderRows() {
         let row = [];
         for (let i = 0; i < SIZE; i++) {
@@ -88,20 +100,28 @@ function App() {
         return row;
     }
 
+    /*
+    * @description: Function to render the Table / Grid Layout
+    * */
     function _renderTable() {
         return (
-                <table className="table-board diamondsweeper-board">
-                    <tbody>{_renderRows()}</tbody>
-                </table>
+            <table className="diamondsweeper-board">
+                <tbody>{_renderRows()}</tbody>
+            </table>
         );
     }
 
     return (
-        <Container className="App">
+        /*
+        * @description: Basic skeleton structure of the page
+        * */
+        <Container className="App" fluid>
             <Row>
-                <header className="App-header">
-                    Diamond Sweeper
-                </header>
+                <Col>
+                    <header className="App-header">
+                        Diamond Sweeper
+                    </header>
+                </Col>
             </Row>
             <Row className="justify-content-md-center">
                 <Col xs={12} md={6} lg={9}>
@@ -114,13 +134,8 @@ function App() {
                 </Col>
                 <Col xs={12} md={6} lg={3}>
                     <div className="score-board">
-                        <p>
-                            Your High Score: {localStorage.getItem('highScore') || 0}
-                        </p>
-
-                        <p>
-                            Diamonds Left: {diamondPositions.length}
-                        </p>
+                        <p>Your High Score: {localStorage.getItem('highScore') || 0}</p>
+                        <p>Diamonds Left: {diamondPositions.length}</p>
 
                         <p>Your score: {score}</p>
                     </div>
