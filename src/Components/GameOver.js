@@ -5,7 +5,6 @@ function GameOver(props) {
     const [show, setShow] = useState(props.gameOver || props.foundAllDia)
     const {gameOver, score} = props
     const _handleClose = () => {
-        console.log('close modal')
         setShow(false)
     }
     const _newGame = () => {
